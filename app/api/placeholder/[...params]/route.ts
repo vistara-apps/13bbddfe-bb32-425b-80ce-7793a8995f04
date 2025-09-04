@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { params: string[] } }
+  context: { params: Promise<{ params: string[] }> }
 ) {
-  const [width, height] = params.params;
+  const { params } = await context.params;
+  const [width, height] = params;
   
   // Generate a simple placeholder SVG
   const svg = `
